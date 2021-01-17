@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+</head>
+<body>
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css" />
+<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" />
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+<link rel="stylesheet" href="https://bootstraptema.ru/plugins/2015/bootstrap3/bootstrap.min.css" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" />
+<link href='https://fonts.googleapis.com/css?family=Roboto:400,700,300' rel='stylesheet' type='text/css'>
+<link href="https://bootstraptema.ru/snippets/element/2020/bootstrap-table.css" rel="stylesheet" />
+<script src="https://bootstraptema.ru/plugins/jquery/jquery-1.11.3.min.js"></script>
+<script type="text/javascript" src="http://bootstraptema.ru/plugins/2015/b-v3-3-6/bootstrap.min.js"></script>
+<script type="text/javascript" src="https://bootstraptema.ru/snippets/element/2020/bootstrap-table.js"></script>
+<script src="https://unpkg.com/bootstrap-table@1.18.1/dist/extensions/toolbar/bootstrap-table-toolbar.min.js"></script>
+
+
+<style>
+    /*body background */
+   /* body{background:#d1d1d1} */
+    /*Navbar effect */
+    .navbar-brand { color: #330570; position: relative; z-index: 2; }
+    .navbar-nav.navbar-right .btn { position: relative; z-index: 2; padding: 4px 20px; margin: 10px auto; }
+    .navbar .navbar-collapse { position: relative; }
+    .navbar .navbar-collapse .navbar-right > li:last-child { padding-left: 22px; }
+    .navbar .nav-collapse { position: absolute; z-index: 1; top: 0; left: 0; right: 0; bottom: 0; margin: 0; padding-right: 120px; padding-left: 80px; width: 100%; }
+    .navbar.navbar-default .nav-collapse { background-color: #f8f8f8; }
+    .navbar.navbar-inverse .nav-collapse { background-color: #222; }
+    .navbar .nav-collapse .navbar-form { border-width: 0; box-shadow: none; }
+    .nav-collapse>li { float: right; }
+    .btn.btn-circle { border-radius: 50px; }
+    .btn.btn-outline { background-color: transparent; }
+    @media screen and (max-width: 767px) {
+        .navbar .navbar-collapse .navbar-right > li:last-child { padding-left: 15px; padding-right: 15px; }
+        .navbar .nav-collapse { margin: 7.5px auto; padding: 0; }
+        .navbar .nav-collapse .navbar-form { margin: 0; }
+        .nav-collapse>li { float: none; }
+    }
+
+    .table_size{
+        width: 70%;
+        height: auto;
+    }
+
+    .btn_pos{
+        margin-left: auto;
+        margin-bottom: 10px;
+    }
+
+    .footbar_table{
+        background: #639A00;
+        color: white;
+    }
+
+    .toolbar_style{
+        color: #222222;
+    }
+
+</style>
+
+
+<div>
+<nav class="navbar navbar-default">
+    <div class="container">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar-collapse-2">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="#">LBet</a>
+        </div>
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div class="collapse navbar-collapse" id="navbar-collapse-2">
+            <ul class="nav navbar-nav navbar-right">
+                <li><a href="/main">Главная</a></li>
+                <li><a href="/about">О нас</a></li>
+                <li><a href="/rule">Правила</a></li>
+                <li><a href="/my">Мои ставки</a></li>
+                <li>
+                    <a class="btn btn-default btn-outline btn-circle" data-toggle="collapse" href="#nav-collapse2" onclick="document.location.href = '/lk'">Личный кабинет</a>
+                </li>
+            </ul>
+        </div><!-- /.navbar-collapse -->
+    </div><!-- /.container -->
+</nav><!-- /.navbar -->
+</div>
+<div class="wrapper">
+    <div class="container">
+        <div class="row">
+            <div>
+
+                <div class="fresh-table">
+
+                    <!-- Изменение фона таблицы: full-color-blue, full-color-azure, full-color-green, full-color-red, full-color-orange
+                    Изменение фона тулбара страницы: toolbar-color-blue, toolbar-color-azure, toolbar-color-green, toolbar-color-red, toolbar-color-orange
+                    -->
+                    <div class="toolbar toolbar_style">
+                        <input type="{{value_check}}" value="Добавить ставку" class="btn btn-default btn_pos" onclick="document.location.href = '/addrate'"></input>
+                    </div>
+                    <table id="fresh-table" class="table" data-search="true" data-advanced-search="true" data-id-table="advancedTable">
+                        <thead class="footbar_table">
+                        <th data-field="id">ID</th>
+                        <th data-field="command1" data-sortable="true">Команда 1</th>
+                        <th data-field="command2" data-sortable="true">Команда 2</th>
+                        <th data-field="typeSport" data-sortable="true">Тип спорта</th>
+                        <th data-field="coef1">Победитель 1</th>
+                        <th data-field="coef2">Ничья</th>
+                        <th data-field="coef3">Победитель 2</th>
+                        <th>Действия</th>
+                        </thead>
+                        <tbody>
+                        {{#allrates}}
+                        <tr>
+                            <td>{{rateId}}</td>
+                            <td>{{nameFirstCommand}}</td>
+                            <td>{{nameSecondCommand}}</td>
+                            <td>{{typeSport}}</td>
+                            <td>{{coefficientWinFirst}}</td>
+                            <td>{{coefficientNoWin}}</td>
+                            <td>{{coefficientWinSecond}}</td>
+                            <td>
+                                <button  class="btn btn-default btn_pos" onclick="document.location.href = '/adduserrate/{{rateId}}'">Поставить ставку</button>
+                            </td>
+                        </tr>
+                        {{/allrates}}
+
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    var $table = $('#fresh-table'),
+            full_screen = true;
+
+    $().ready(function(){
+        $table.bootstrapTable({
+            toolbar: ".toolbar",
+            pagination: true,
+            striped: true,
+            pageSize: 10,
+            pageList: [10,15,25,50,100],
+
+            formatShowingRows: function(pageFrom, pageTo, totalRows){
+                //do nothing here, we don't want to show the text "showing x of y from..."
+            },
+            formatRecordsPerPage: function(pageNumber){
+                return pageNumber + " rows visible";
+            },
+            icons: {
+                refresh: 'fa fa-refresh',
+                toggle: 'fa fa-th-list',
+                columns: 'fa fa-columns',
+                detailOpen: 'fa fa-plus-circle',
+                detailClose: 'fa fa-minus-circle'
+            }
+        });
+
+
+
+        $(window).resize(function () {
+            $table.bootstrapTable('resetView');
+        });
+
+
+
+
+    });
+
+</script>
+</body>
+</html>
