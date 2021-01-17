@@ -89,7 +89,7 @@ public class MainController implements ErrorController {
     }
 
     /**
-     * еобходим для маппинга страницы с авторизацией для post-запросов.
+     * Необходим для маппинга страницы с авторизацией для post-запросов.
      * @param email  email пользователя
      * @param password пароль пользователя
      * @param model необходим для вставки различных объектов в атрибуты страницы
