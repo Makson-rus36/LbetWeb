@@ -10,4 +10,5 @@ import java.util.List;
 public interface AddedRatesRepo extends CrudRepository<AddedUsersRates, Long> {
     List<AddedUsersRates> findFirstByUserIdAndRateId(long user_id, long rate_id);
     List<AddedUsersRates> findAllByUserId(long user_id);
+    List<AddedUsersRates> findAllByRateId(long rate_id);
 }

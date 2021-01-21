@@ -61,6 +61,8 @@ public class UserInfo {
     @Lob
     byte[] imageAvatar;
 
+    float balance;
+
     /**
      * Создание объекта {@link UserInfo}
      */
@@ -92,7 +94,8 @@ public class UserInfo {
             String cvvCode,
             String numberCard,
             int role,
-            byte[] imageAvatar
+            byte[] imageAvatar,
+            float balance
     ) {
         this.firstname = firstname;
         this.lastname = lastname;
@@ -105,6 +108,7 @@ public class UserInfo {
         this.numberCard = numberCard;
         this.role = role;
         this.imageAvatar = imageAvatar;
+        this.balance = balance;
     }
 
     /**
@@ -297,5 +301,13 @@ public class UserInfo {
      */
     public void setImageAvatar(byte[] imageAvatar) {
         this.imageAvatar = imageAvatar;
+    }
+
+    public float getBalance() {
+        return balance;
+    }
+
+    public void setBalance(float balance) {
+        this.balance = balance;
     }
 }

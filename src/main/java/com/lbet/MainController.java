@@ -155,7 +155,7 @@ public class MainController implements ErrorController {
             return "registrationpage";
         }else {
             try{
-            UserInfo userInfo = new UserInfo(name,lastname,email,password,expirationDateMounth,expirationDateYear,ownerCard,cvvCode,numberCard,1,file.getBytes());
+            UserInfo userInfo = new UserInfo(name,lastname,email,password,expirationDateMounth,expirationDateYear,ownerCard,cvvCode,numberCard,1,file.getBytes(),0);
             userInfoRepo.save(userInfo);
             return "redirect:login";
             }catch (Exception ex){
@@ -353,6 +353,7 @@ public class MainController implements ErrorController {
         try{
             if(thisuser.getIdUser()!=null){
                 UserInfo userInfo = userInfoRepo.findFirstByUserid(thisuser.getIdUser());
+                modelMap.put("balance",userInfo.getBalance());
                 modelMap.put("emailUser",userInfo.getEmailUser());
                 modelMap.put("firstname",userInfo.getFirstname());
                 modelMap.put("lastname",userInfo.getLastname());
@@ -445,6 +446,54 @@ public class MainController implements ErrorController {
             return "redirect:/login";
         }
     }
+
+    @GetMapping("/closeuserrate/{rateId}")
+    public String showCloseRatePage(ModelMap modelMap, @PathVariable String rateId){
+        if(thisuser.getIdUser()==null){
+            return "redirect:/login";
+        }else{
+            if(thisuser.getRole()==0){
+                UserRates rate = userRatesRepo.findFirstByRateId(Long.parseLong(rateId));
+                List<ListCommand> listCommands = new ArrayList<>();
+                listCommands.add(new ListCommand(rate.getNameFirstCommand()));
+                listCommands.add(new ListCommand("Ничья"));
+                listCommands.add(new ListCommand(rate.getNameSecondCommand()));
+                modelMap.put("rateid", rateId);
+                modelMap.put("valuesCommand", listCommands);
+                modelMap.put("commandFirst",rate.getNameFirstCommand());
+                modelMap.put("commandSecond",rate.getNameSecondCommand());
+                return "closeratepage";
+            }else
+                return "redirect:/erroraccess";
+
+        }
+    }
+
+    @GetMapping("/closerate/{rateid}/{commandWin}")
+    public String actionCloseRate(@PathVariable String rateid, @PathVariable String commandWin){
+        if(thisuser.getIdUser()==null){
+            return "redirect:/login";
+        }else{
+            if(thisuser.getRole()==0){
+                List<AddedUsersRates> addedRatesRepoList = (List<AddedUsersRates>) addedRatesRepo.findAllByRateId(Long.parseLong(rateid));
+                for (AddedUsersRates rate: addedRatesRepoList) {
+                    UserInfo userInfo = userInfoRepo.findFirstByUserid(rate.getUserId());
+                    if(userInfo!=null){
+                        if(commandWin.equals(rate.getNameSelectTypeCommand())){
+                            userInfo.setBalance(userInfo.getBalance()+rate.getStakeAmount());
+                            userInfoRepo.save(userInfo);
+                        }
+                    }
+                    addedRatesRepo.delete(rate);
+                }
+                userRatesRepo.delete(userRatesRepo.findFirstByRateId(Long.parseLong(rateid)));
+                return "redirect:/main";
+            }else
+                return "redirect:/erroraccess";
+
+        }
+    }
+
 
 
     /**

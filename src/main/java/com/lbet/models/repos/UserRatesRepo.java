@@ -9,4 +9,5 @@ import java.util.List;
 @Repository
 public interface UserRatesRepo extends CrudRepository<UserRates, Long> {
 UserRates findFirstByRateId(long rate_id);
+Integer deleteByRateId(long rate_id);
 }

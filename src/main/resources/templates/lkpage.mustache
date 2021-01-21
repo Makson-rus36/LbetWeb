@@ -224,6 +224,10 @@
             <form class="form-horizontal" enctype="multipart/form-data" action="/lk" method="post">
                 <span class="heading">Личный кабинет</span>
                 <div class="form-group">
+                    <label for="balanceUser" style="margin-left: 0px">Ваш баланс:</label>
+                    <input type="number" class="form-control" readonly="readonly" id="balanceUser" value="{{balance}}">
+                </div>
+                <div class="form-group">
                     <img src="data:image/jpeg;base64,{{userImage}}" height="150" />
                     <p><input type="file" hidden="hidden" aria-hidden="true" id="photo" name="photo" multiple accept="image/*,image/jpeg"></p>
                 </div>
